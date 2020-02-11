@@ -1,5 +1,6 @@
 # workout-partner
-Helps you keep on track with your workouts
+Helps you keep on track with your workouts. Trainers plan workouts for trainees. 
+Trainees execute their workout plans.
 
 ## featuring
 separation business logic form infrastructure  
@@ -22,28 +23,20 @@ workout statistics saved
 workout modified,deleted  
 exercise created,deleted,modified
 
-### the plot
-#### before workout session   
-workout planned
-  
-#### for one workout session  
-workout started -> exercise started (repeatedly) -> set started(repeatedly) -> repetition added(repeatedly) -> workout finished -> workout statistics saved
-
-#### besides workout session (no specific order)  
-workout modified,deleted  
-exercise created,deleted,modified
-
 ### commands
-plan workout
-
-begin workout  
-begin exercise  
-begin set  
-add repetition  
-finnish workout  
-
-edit/delete workout  
+(Trainer)   
+plan workout [workout plan, trainee]  
 create/modify/delete exercise
+
+(Trainee)  
+begin workout {if no workout planned for today, reject}    
+begin exercise {workout must be started} {reject if exercise is not on the plan}   
+begin set {exercise must be started} {reject if number of sets exceed planned one}  
+add repetition {set must be started} {reject if number of reps exceed planned one}   
+finnish workout {must be at least one exercise} 
+
+(Trainee)  
+edit/delete workout {workout must be finished}  
 
 ### views
 e-event v-view
