@@ -1,13 +1,8 @@
-# workout-partner
+# Workout Partner
 Helps you keep on track with your workouts. Trainers plan workouts for trainees. 
 Trainees execute their workout plans.
 
-## featuring
-separation business logic form infrastructure  
-unit/integration testing  
-REST api 
-
-## event modeling
+## Event modeling
 resource https://eventmodeling.org/posts/what-is-event-modeling/
 
 ### brain storming (events)
@@ -29,7 +24,7 @@ plan workout [workout plan, trainee]
 create/modify/delete exercise
 
 (Trainee)  
-begin workout {if no workout planned for today, reject}    
+begin workout [workout plan]    
 begin exercise {workout must be started} {reject if exercise is not on the plan}   
 begin set {exercise must be started} {reject if number of sets exceed planned one}  
 add repetition {set must be started} {reject if number of reps exceed planned one}   
@@ -44,3 +39,8 @@ e-event v-view
 (e) workout finished -> (v) workout edition  
 (e) workout statistics saved -> (v) workout statistics  
 (v) exercise edition 
+
+## This project features
+separation business logic form infrastructure  
+unit/integration testing  
+REST api 

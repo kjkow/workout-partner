@@ -4,14 +4,16 @@ import java.time.LocalDateTime;
 
 class WorkoutSession {
 
-    private LocalDateTime workoutStartTime;
     private final Trainee trainee;
+    private final WorkoutSessionPlan workoutSessionPlan;
+    private LocalDateTime workoutStartTime;
 
-    WorkoutSession(Trainee trainee) {
+    WorkoutSession(Trainee trainee, WorkoutSessionPlan workoutSessionPlan) {
         this.trainee = trainee;
+        this.workoutSessionPlan = workoutSessionPlan;
     }
 
-    void beginWorkout(){
+    void beginWorkout() {
         workoutStartTime = LocalDateTime.now();
     }
 
