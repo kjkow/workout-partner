@@ -1,4 +1,4 @@
-package com.github.kjkow.workoutpartner.session;
+package com.github.kjkow.workoutpartner.planning;
 
 import lombok.Value;
 

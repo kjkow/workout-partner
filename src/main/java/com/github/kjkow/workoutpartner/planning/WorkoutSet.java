@@ -1,11 +1,12 @@
-package com.github.kjkow.workoutpartner.session;
+package com.github.kjkow.workoutpartner.planning;
 
+import lombok.NonNull;
 import lombok.Value;
 
 import java.util.List;
 
 @Value
 class WorkoutSet {
-    String exerciseName;
+    @NonNull
     List<WorkoutRepetition> workoutRepetitions;
 }
