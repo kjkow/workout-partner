@@ -7,9 +7,10 @@ import lombok.AllArgsConstructor;
 class SessionPlanning {
 
     private final WorkoutPlanRepository repository;
+    private final PlanningEvents events;
 
     void planWorkout(WorkoutSessionPlan plan) {
         repository.addPlan(plan);
-        //TODO publish event
+        events.publish();//TODO actual event
     }
 }

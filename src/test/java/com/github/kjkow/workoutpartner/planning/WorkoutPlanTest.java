@@ -2,6 +2,7 @@ package com.github.kjkow.workoutpartner.planning;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -9,6 +10,8 @@ import java.util.UUID;
 
 import static java.util.Collections.singletonList;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 
 class WorkoutPlanTest {
 
@@ -17,7 +20,8 @@ class WorkoutPlanTest {
     void testPlan() {
         //given
         var repository = new WorkoutPlanInMemoRepository();
-        var sessionPlanning = new SessionPlanning(repository);
+        PlanningEvents events = mock(PlanningEvents.class);
+        var sessionPlanning = new SessionPlanning(repository, events);
         var traineeId = new TraineeId(UUID.randomUUID());
 
         //when
@@ -25,6 +29,7 @@ class WorkoutPlanTest {
 
         //then
         assertTrue(repository.findBy(traineeId).isPresent());
+        Mockito.verify(events, times(1)).publish();
     }
 
     static WorkoutSessionPlan anyWorkoutPlan(TraineeId traineeId) {
@@ -35,7 +40,5 @@ class WorkoutPlanTest {
         var exercises = singletonList(new Exercise("deadLift", singletonList(deadLiftSet)));
         return new WorkoutSessionPlan(exercises, LocalDate.of(2020, 3, 20), traineeId);
     }
-
-
 }
 
