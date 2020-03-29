@@ -9,7 +9,7 @@ public class Events {
     private final ApplicationEventPublisher eventPublisher;
     private final EventStorage eventStorage;
 
-    void publish(Event event) {
+    public void publish(Event event) {
         eventPublisher.publishEvent(event);
         eventStorage.store(event);
     }

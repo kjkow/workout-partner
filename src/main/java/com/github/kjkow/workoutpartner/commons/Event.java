@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public interface Event {
 
-    UUID aggregateId();
+    UUID getAggregateId();
 
-    Instant created();
+    Instant getCreated();
 }

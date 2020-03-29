@@ -6,9 +6,12 @@ import lombok.Value;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Value
 public class WorkoutSessionPlan {
+    @NonNull
+    UUID workoutPlanId = UUID.randomUUID();
     @NonNull
     List<Exercise> exercises;
     @NonNull

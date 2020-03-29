@@ -1,35 +1,35 @@
 package com.github.kjkow.workoutpartner.planning;
 
+import com.github.kjkow.workoutpartner.commons.Events;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
 import static java.util.Collections.singletonList;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.*;
 
 class WorkoutPlanTest {
+
+    private final WorkoutPlanRepository repository = mock(WorkoutPlanRepository.class);
+    private final Events events = mock(Events.class);
 
     @DisplayName("should add new workout plan")
     @Test
     void testPlan() {
         //given
-        var repository = new WorkoutPlanInMemoRepository();
-        PlanningEvents events = mock(PlanningEvents.class);
-        var sessionPlanning = new SessionPlanning(repository, events);
+        var unplannedWorkoutSession = new UnplannedWorkoutSession(repository, events);
         var traineeId = new TraineeId(UUID.randomUUID());
+        var plan = anyWorkoutPlan(traineeId);
 
         //when
-        sessionPlanning.planWorkout(anyWorkoutPlan(traineeId));
+        var workoutPlannedEvent = unplannedWorkoutSession.planWorkout(plan);
 
         //then
-        assertTrue(repository.findBy(traineeId).isPresent());
-        Mockito.verify(events, times(1)).publish();
+        verify(repository, times(1)).addPlan(plan);
+        verify(events, times(1)).publish(workoutPlannedEvent);
     }
 
     static WorkoutSessionPlan anyWorkoutPlan(TraineeId traineeId) {
