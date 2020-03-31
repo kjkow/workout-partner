@@ -14,7 +14,7 @@ class UnplannedWorkoutSession {
 
     WorkoutPlanned planWorkout(WorkoutSessionPlan plan) {
         repository.addPlan(plan);
-        var event = new WorkoutPlanned(plan.getWorkoutPlanId(), Instant.now());
+        var event = new WorkoutPlanned(plan.getWorkoutPlanId(), Instant.now(), plan.getForDay());
         events.publish(event);
         return event;
     }

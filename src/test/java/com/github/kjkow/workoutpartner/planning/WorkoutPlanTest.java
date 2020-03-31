@@ -4,10 +4,10 @@ import com.github.kjkow.workoutpartner.commons.Events;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import static com.github.kjkow.workoutpartner.planning.Fixture.randomDate;
 import static java.util.Collections.singletonList;
 import static org.mockito.Mockito.*;
 
@@ -16,7 +16,10 @@ class WorkoutPlanTest {
     private final WorkoutPlanRepository repository = mock(WorkoutPlanRepository.class);
     private final Events events = mock(Events.class);
 
-    @DisplayName("should add new workout plan")
+
+    @DisplayName("when new workout is planned, then" +
+            "it is persisted in repository and" +
+            "workout planned event is published")
     @Test
     void testPlan() {
         //given
@@ -38,7 +41,7 @@ class WorkoutPlanTest {
         var deadLiftRepetitionThree = new WorkoutRepetition(Weight.ofKilograms(350));
         var deadLiftSet = new WorkoutSet(List.of(deadLiftRepetitionOne, deadLiftRepetitionTwo, deadLiftRepetitionThree));
         var exercises = singletonList(new Exercise("deadLift", singletonList(deadLiftSet)));
-        return new WorkoutSessionPlan(exercises, LocalDate.of(2020, 3, 20), traineeId);
+        return new WorkoutSessionPlan(exercises, randomDate(), traineeId);
     }
 }
 
