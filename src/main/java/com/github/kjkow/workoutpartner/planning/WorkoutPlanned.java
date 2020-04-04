@@ -16,4 +16,6 @@ public class WorkoutPlanned implements Event {
     Instant created;
     @NonNull
     LocalDate forDay;
+    @NonNull
+    UUID forTrainee;
 }

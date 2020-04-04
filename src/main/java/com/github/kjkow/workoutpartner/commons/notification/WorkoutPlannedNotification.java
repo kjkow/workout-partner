@@ -13,7 +13,7 @@ class WorkoutPlannedNotification {
     @EventListener
     void handle(WorkoutPlanned event) {
         var notification = new Notification(
-                event.getAggregateId(), //TODO should be TraineeId
+                event.getForTrainee(),
                 "Workout for " + event.getForDay() + " is planned");
         notificationApi.sendNotification(notification);
     }

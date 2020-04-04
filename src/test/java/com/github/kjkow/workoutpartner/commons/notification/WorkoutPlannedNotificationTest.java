@@ -18,14 +18,18 @@ class WorkoutPlannedNotificationTest {
     @Test
     void notificationTest() {
         //given
-        WorkoutPlanned event = new WorkoutPlanned(UUID.randomUUID(), Instant.now(), randomDate());
-        WorkoutPlannedNotification handler = new WorkoutPlannedNotification(notificationApi);
+        var event = workoutPlannedEvent();
+        var handler = new WorkoutPlannedNotification(notificationApi);
 
         //when
         handler.handle(event);
 
         //then
         verify(notificationApi, times(1)).sendNotification(any());
+    }
+
+    private WorkoutPlanned workoutPlannedEvent() {
+        return new WorkoutPlanned(UUID.randomUUID(), Instant.now(), randomDate(), UUID.randomUUID());
     }
 
 }
