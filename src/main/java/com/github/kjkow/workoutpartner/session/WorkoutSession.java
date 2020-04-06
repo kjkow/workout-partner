@@ -1,23 +1,22 @@
 package com.github.kjkow.workoutpartner.session;
 
-import java.time.LocalDateTime;
+import com.github.kjkow.workoutpartner.commons.Events;
+import com.github.kjkow.workoutpartner.planning.WorkoutSessionPlan;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 
+import java.time.Instant;
+import java.util.UUID;
+
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 class WorkoutSession {
 
-    private final Trainee trainee;
-    private final WorkoutSessionPlan workoutSessionPlan;
-    private LocalDateTime workoutStartTime;
+    private final Events events;
 
-    WorkoutSession(Trainee trainee, WorkoutSessionPlan workoutSessionPlan) {
-        this.trainee = trainee;
-        this.workoutSessionPlan = workoutSessionPlan;
-    }
-
-    void beginWorkout() {
-        workoutStartTime = LocalDateTime.now();
-    }
-
-    boolean isStarted() {
-        return workoutStartTime != null;
+    public StartedWorkout beginWorkout(WorkoutSessionPlan sessionPlan) {
+        var sessionId = UUID.randomUUID();
+        var event = new WorkoutStarted(sessionId, Instant.now());
+        events.publish(event);
+        return new StartedWorkout(sessionId);
     }
 }
