@@ -4,8 +4,6 @@ import com.github.kjkow.workoutpartner.commons.Events;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.UUID;
-
 import static com.github.kjkow.workoutpartner.planning.Fixture.anyWorkoutPlan;
 import static org.mockito.Mockito.*;
 
@@ -21,8 +19,7 @@ class WorkoutPlanTest {
     void testPlan() {
         //given
         var unplannedWorkoutSession = new UnplannedWorkoutSession(repository, events);
-        var traineeId = new TraineeId(UUID.randomUUID());
-        var plan = anyWorkoutPlan(traineeId);
+        var plan = anyWorkoutPlan();
 
         //when
         var workoutPlannedEvent = unplannedWorkoutSession.planWorkout(plan);

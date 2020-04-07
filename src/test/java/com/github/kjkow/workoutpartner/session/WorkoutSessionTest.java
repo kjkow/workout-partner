@@ -1,11 +1,8 @@
 package com.github.kjkow.workoutpartner.session;
 
 import com.github.kjkow.workoutpartner.commons.Events;
-import com.github.kjkow.workoutpartner.planning.TraineeId;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.UUID;
 
 import static com.github.kjkow.workoutpartner.planning.Fixture.anyWorkoutPlan;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,7 +19,7 @@ class WorkoutSessionTest {
     void beginWorkout() {
         //given
         var session = new WorkoutSession(events);
-        var anyPlan = anyWorkoutPlan(new TraineeId(UUID.randomUUID()));
+        var anyPlan = anyWorkoutPlan();
 
         //when
         var startedWorkout = session.beginWorkout(anyPlan);

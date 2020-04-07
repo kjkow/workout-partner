@@ -9,4 +9,8 @@ import java.util.List;
 class WorkoutSet {
     @NonNull
     List<WorkoutRepetition> workoutRepetitions;
+
+    static WorkoutSet ofReps(List<WorkoutRepetition> reps) {
+        return new WorkoutSet(reps);
+    }
 }
