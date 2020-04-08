@@ -17,6 +17,6 @@ class WorkoutSession {
         var sessionId = UUID.randomUUID();
         var event = new WorkoutStarted(sessionId, Instant.now());
         events.publish(event);
-        return new StartedWorkout(sessionId);
+        return new StartedWorkout(sessionId, events);
     }
 }
