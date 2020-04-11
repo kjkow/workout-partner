@@ -6,7 +6,7 @@ import lombok.Value;
 import java.util.List;
 
 @Value
-class Exercise {
+public class Exercise {
     @NonNull
     String name;
     @NonNull

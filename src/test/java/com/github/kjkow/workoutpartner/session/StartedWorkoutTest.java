@@ -4,10 +4,11 @@ import com.github.kjkow.workoutpartner.commons.Events;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.UUID;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
-import static org.mockito.internal.verification.VerificationModeFactory.noInteractions;
 
 class StartedWorkoutTest {
 
@@ -25,10 +26,12 @@ class StartedWorkoutTest {
         startingExerciseOnTheList();
 
         //when
-        workout.startExercise(exercise);
+        var result = workout.startExercise(exercise);
 
         //then
         verify(events, times(1)).publish(any(ExerciseStarted.class));
+        //and
+        assertThat(result.isSuccess()).isTrue();
     }
 
     @DisplayName("given started workout, " +
@@ -42,10 +45,12 @@ class StartedWorkoutTest {
         startingExerciseNotOnPlan();
 
         //when
-        workout.startExercise(exercise);
+        var result = workout.startExercise(exercise);
 
         //then
-        verify(events, noInteractions()).publish(any()); //TODO sth else than no interactions? Rejected event?
+        assertThat(result.isFailure()).isTrue();
+        //and
+        assertThat(result.getReason()).isNotEmpty();
     }
 
     private void startingExerciseNotOnPlan() {
@@ -57,7 +62,8 @@ class StartedWorkoutTest {
     }
 
     private void startedWorkout() {
-        workout = new StartedWorkout(UUID.randomUUID(), events);
+        var exercises = List.of("deadlift");
+        workout = new StartedWorkout(UUID.randomUUID(), events, exercises);
     }
 
 }
