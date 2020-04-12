@@ -14,22 +14,30 @@ class WorkoutPlannedNotificationTest {
 
     private final NotificationApi notificationApi = mock(NotificationApi.class);
 
+    private WorkoutPlanned workoutPlanned;
+    private WorkoutPlannedNotification notificationHandler;
+
     @DisplayName("when workout is planned then notification is send")
     @Test
     void notificationTest() {
         //given
-        var event = workoutPlannedEvent();
-        var handler = new WorkoutPlannedNotification(notificationApi);
+        workoutPlanned();
+        //and
+        notificationHandler();
 
         //when
-        handler.handle(event);
+        notificationHandler.handle(workoutPlanned);
 
         //then
         verify(notificationApi, times(1)).sendNotification(any());
     }
 
-    private WorkoutPlanned workoutPlannedEvent() {
-        return new WorkoutPlanned(UUID.randomUUID(), Instant.now(), randomDate(), UUID.randomUUID());
+    private void workoutPlanned() {
+        workoutPlanned = new WorkoutPlanned(UUID.randomUUID(), Instant.now(), randomDate(), UUID.randomUUID());
+    }
+
+    private void notificationHandler() {
+        notificationHandler = new WorkoutPlannedNotification(notificationApi);
     }
 
 }

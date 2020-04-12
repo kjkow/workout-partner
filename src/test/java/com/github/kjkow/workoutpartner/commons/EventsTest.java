@@ -8,19 +8,26 @@ import static org.mockito.Mockito.*;
 
 class EventsTest {
 
+    private final EventStorage eventStorage = mock(EventStorage.class);
+    private final Events eventPublisher = new Events(mock(ApplicationEventPublisher.class), eventStorage);
+
+    private Event anyEvent;
+
     @DisplayName("when event is published then it should be saved in storage")
     @Test
     void saveTest() {
         //given
-        var eventStorage = mock(EventStorage.class);
-        var events = new Events(mock(ApplicationEventPublisher.class), eventStorage);
-        var event = mock(Event.class);
+        anyEvent();
 
         //when
-        events.publish(event);
+        eventPublisher.publish(anyEvent);
 
         //then
-        verify(eventStorage, times(1)).store(event);
+        verify(eventStorage, times(1)).store(anyEvent);
+    }
+
+    private void anyEvent() {
+        anyEvent = mock(Event.class);
     }
 
 }

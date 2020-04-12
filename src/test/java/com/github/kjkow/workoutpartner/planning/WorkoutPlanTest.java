@@ -4,7 +4,6 @@ import com.github.kjkow.workoutpartner.commons.Events;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.github.kjkow.workoutpartner.planning.Fixture.anyWorkoutPlan;
 import static org.mockito.Mockito.*;
 
 class WorkoutPlanTest {
@@ -12,21 +11,33 @@ class WorkoutPlanTest {
     private final WorkoutPlanRepository repository = mock(WorkoutPlanRepository.class);
     private final Events events = mock(Events.class);
 
+    private UnplannedWorkoutSession unplannedWorkoutSession;
+    private WorkoutSessionPlan anyWorkoutPlan;
+
     @DisplayName("when new workout is planned, then" +
             "it is persisted in repository and" +
             "workout planned event is published")
     @Test
     void testPlan() {
         //given
-        var unplannedWorkoutSession = new UnplannedWorkoutSession(repository, events);
-        var plan = anyWorkoutPlan();
+        unplannedWorkoutSession();
+        //and
+        anyWorkoutPlan();
 
         //when
-        var workoutPlannedEvent = unplannedWorkoutSession.planWorkout(plan);
+        var workoutPlannedEvent = unplannedWorkoutSession.planWorkout(anyWorkoutPlan);
 
         //then
-        verify(repository, times(1)).addPlan(plan);
+        verify(repository, times(1)).addPlan(anyWorkoutPlan);
         verify(events, times(1)).publish(workoutPlannedEvent);
+    }
+
+    private void unplannedWorkoutSession() {
+        unplannedWorkoutSession = new UnplannedWorkoutSession(repository, events);
+    }
+
+    private void anyWorkoutPlan() {
+        anyWorkoutPlan = Fixture.anyWorkoutPlan();
     }
 
 }

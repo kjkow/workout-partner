@@ -14,7 +14,7 @@ class StartedWorkoutTest {
 
     private final Events events = mock(Events.class);
 
-    private StartedWorkout workout;
+    private StartedWorkout startedWorkout;
     private String exercise;
 
     @DisplayName("given started workout, should start exercise")
@@ -26,7 +26,7 @@ class StartedWorkoutTest {
         startingExerciseOnTheList();
 
         //when
-        var result = workout.startExercise(exercise);
+        var result = startedWorkout.startExercise(exercise);
 
         //then
         verify(events, times(1)).publish(any(ExerciseStarted.class));
@@ -45,7 +45,7 @@ class StartedWorkoutTest {
         startingExerciseNotOnPlan();
 
         //when
-        var result = workout.startExercise(exercise);
+        var result = startedWorkout.startExercise(exercise);
 
         //then
         assertThat(result.isFailure()).isTrue();
@@ -63,7 +63,7 @@ class StartedWorkoutTest {
 
     private void startedWorkout() {
         var exercises = List.of("deadlift");
-        workout = new StartedWorkout(UUID.randomUUID(), events, exercises);
+        startedWorkout = new StartedWorkout(UUID.randomUUID(), events, exercises);
     }
 
 }
