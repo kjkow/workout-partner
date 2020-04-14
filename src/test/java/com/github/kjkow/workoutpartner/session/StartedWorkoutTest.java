@@ -53,26 +53,6 @@ class StartedWorkoutTest {
         assertThat(result.getReason()).isNotEmpty();
     }
 
-    @DisplayName("should start new set")
-    @Test
-    void testStartSet() {
-        //given
-        startedWorkout();
-        //and
-        exerciseStarted();
-
-        //when
-        var result = startedWorkout.startSet();
-
-        //then
-        assertThat(result.isSuccess());
-    }
-
-    private void exerciseStarted() {
-        startingExerciseOnPlan();
-        startedWorkout.startExercise(exercise);
-    }
-
     private void startingExerciseNotOnPlan() {
         exercise = "bench press";
     }

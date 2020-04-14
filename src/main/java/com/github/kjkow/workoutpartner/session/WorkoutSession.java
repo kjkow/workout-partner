@@ -18,7 +18,7 @@ class WorkoutSession {
     public StartedWorkout beginWorkout(WorkoutSessionPlan sessionPlan) {
         var sessionId = UUID.randomUUID();
         var event = new WorkoutStarted(sessionId, Instant.now());
-        events.publish(event);
+        events.publish(event); // todo publishing events inside aggregate not the best option, what is the purpose of such publishing?
         var exercises = sessionPlan.getExercises()
                 .stream()
                 .map(Exercise::getName)

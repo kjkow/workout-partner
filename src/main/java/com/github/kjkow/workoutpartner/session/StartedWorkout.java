@@ -24,10 +24,6 @@ class StartedWorkout {
         return Result.success();
     }
 
-    Result startSet() {
-        return Result.success();
-    }
-
     private boolean exerciseIsNotOnTheList(String exercise) {
         return exercises
                 .stream()
