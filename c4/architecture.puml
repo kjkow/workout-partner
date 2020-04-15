@@ -1,0 +1,28 @@
+@startuml
+
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/release/1-0/C4_Container.puml
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/release/1-0/C4_Component.puml
+
+title <b>[Container diagram]</b> Workout Partner application
+
+Person(trainee, "Trainee", "Anyone who wishes to improve physical performance")
+Person(trainer, "Trainer", "Qualified person who is hired by Trainee to plan their workouts")
+
+Container_Boundary(c1, "Training Application"){
+    Container(webapp, "Web Application", "not defined yet")
+    Container(voice, "Voice Controller", "Google Assistant", "Allows workout execution via voice API")
+    Container(backendApp, "API application", "Java", "Holds logic for planning and executing workouts")
+    ContainerDb(db, "Database", "Relational DB", "Stores workout plans, trainee information, and workout statistics")
+    ContainerDb(dbnosql, "Database", "MongoDB", "Stores training states")
+}
+
+Rel(trainer, webapp, "plans workout with")
+Rel(trainee, voice, "executes workouts with")
+
+Rel(webapp, backendApp, "makes requests for")
+Rel(voice, backendApp, "makes requests for")
+
+Rel(backendApp, dbnosql, "persist training state")
+Rel(backendApp, db, "reads and writes to")
+
+@enduml
