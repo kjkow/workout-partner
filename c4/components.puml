@@ -1,0 +1,31 @@
+@startuml
+
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/release/1-0/C4_Container.puml
+
+title <b>[Component diagram]</b> Workout Partner application
+
+
+Person(trainer, "Trainer", "Qualified person who is hired by Trainee to plan their workouts")
+
+Container_Boundary(planning, "Planning"){
+    Container(unplannedWorkoutSession, "UnplannedWorkoutSession", "")
+    Container(repo, "WorkoutPlanRepository", "")
+}
+
+Rel(unplannedWorkoutSession, repo, "persists workout plans")
+Rel(trainer, unplannedWorkoutSession, "plans workouts")
+
+
+
+Person(trainee, "Trainee", "Anyone who wishes to improve physical performance")
+
+Container_Boundary(session, "Session"){
+    Container(workoutSession, "WorkoutSession", "")
+    Container(startedWorkout, "StartedWorkout", "")
+}
+
+Rel(trainee, workoutSession, "begins workout")
+Rel(trainee, startedWorkout, "performs exercises on")
+
+
+@enduml
