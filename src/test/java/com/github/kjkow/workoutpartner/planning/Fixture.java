@@ -21,6 +21,6 @@ public class Fixture {
         var deadLiftSet = WorkoutSet.ofReps(reps);
         var exercises = singletonList(new Exercise("deadLift", singletonList(deadLiftSet)));
 
-        return new WorkoutSessionPlan(exercises, randomDate(), new TraineeId(UUID.randomUUID()));
+        return new WorkoutSessionPlan(UUID.randomUUID(), exercises, randomDate(), new TraineeId(UUID.randomUUID()));
     }
 }

@@ -11,7 +11,7 @@ import java.util.UUID;
 @Value
 public class WorkoutSessionPlan {
     @NonNull
-    UUID workoutPlanId = UUID.randomUUID();
+    UUID workoutPlanId;
     @NonNull
     List<Exercise> exercises;
     @NonNull

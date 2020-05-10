@@ -8,7 +8,7 @@ import static org.mockito.Mockito.*;
 
 class WorkoutPlanTest {
 
-    private final WorkoutPlanRepository repository = mock(WorkoutPlanRepository.class);
+    private final WorkoutSessionPlanRepository repository = mock(WorkoutSessionPlanRepository.class);
     private final Events events = mock(Events.class);
 
     private UnplannedWorkoutSession unplannedWorkoutSession;
@@ -28,7 +28,7 @@ class WorkoutPlanTest {
         var workoutPlannedEvent = unplannedWorkoutSession.planWorkout(anyWorkoutPlan);
 
         //then
-        verify(repository, times(1)).addPlan(anyWorkoutPlan);
+        verify(repository, times(1)).save(anyWorkoutPlan);
         verify(events, times(1)).publish(workoutPlannedEvent);
     }
 

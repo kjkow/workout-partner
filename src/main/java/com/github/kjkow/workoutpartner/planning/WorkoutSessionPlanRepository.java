@@ -3,9 +3,9 @@ package com.github.kjkow.workoutpartner.planning;
 
 import java.util.Optional;
 
-public interface WorkoutPlanRepository {
+public interface WorkoutSessionPlanRepository {
 
-    void addPlan(WorkoutSessionPlan plan);
+    void save(WorkoutSessionPlan plan);
 
     Optional<WorkoutSessionPlan> findBy(TraineeId traineeId);
 }
