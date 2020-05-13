@@ -2,6 +2,7 @@ package com.github.kjkow.workoutpartner.planning;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 import static java.util.Collections.singletonList;
@@ -9,7 +10,15 @@ import static java.util.Collections.singletonList;
 public class Fixture {
 
     public static LocalDate randomDate() {
-        return LocalDate.of(2020, 3, 20); //TODO randomize
+        return LocalDate.of(
+                randomIntegerWithRange(1990, 2020),
+                randomIntegerWithRange(1, 12),
+                randomIntegerWithRange(1, 28));
+    }
+
+    private static int randomIntegerWithRange(int min, int max) {
+        var randomInt = new Random().ints(min, max).findFirst();
+        return randomInt.orElse(0);
     }
 
     public static WorkoutSessionPlan anyWorkoutPlan() {
